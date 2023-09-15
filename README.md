@@ -12,13 +12,13 @@ npm install
 configuration your file .env to mysql server
 
 setup database
-&nbsp
+
 open terminal
 ```
 mysql -u root -p
 ```
 enter *password
-&nbsp
+
 create database
 ```
 create database hangout;
