@@ -31,7 +31,7 @@ show databases;
 exit;
 ```
 ```
-npm run dev
+nodemon index.js
 ```
 
 
