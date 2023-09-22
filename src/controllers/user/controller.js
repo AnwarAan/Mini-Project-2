@@ -10,7 +10,7 @@ export default class Controller {
 
   async getUsers() {
     const result = await this.user.findManyUser();
-    if (result.length === 0) throw new AppError("Data Empty", 404);
+    // if (result.length === 0) throw new AppError("Data Empty", 404);
     return result;
   }
 
@@ -28,11 +28,11 @@ export default class Controller {
   }
 
   async register(payload) {
-    const { name, email, password } = payload;
+    const { firstName, lastName, email, password } = payload;
     const checkUser = await this.getUserByEmail(email);
     if (checkUser !== null) throw new AppError("Email Already Exist", 403);
     const pwd = await bcrypt.hashPwd(password);
-    const data = { name: name, email: email, password: pwd };
+    const data = { first_name: firstName, last_name: lastName, email: email, password: pwd };
     await this.user.insertOneUser(data);
   }
 

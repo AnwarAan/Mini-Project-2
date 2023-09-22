@@ -8,17 +8,17 @@ export default class Controller {
   }
 
   async getEvents(query) {
-    let date;
-    const now = Date.now();
-    if (query.filter === "today") {
-      date = Date.now() + 24 * 60 * 60 * 1000;
-    }
-    if (query.filter === "week") {
-      date = Date.now() + 24 * 60 * 60 * 1000;
-    }
+    // const now = Date.now();
+    // if (query.filter === "today") {
+    //   date = Date.now() + 24 * 60 * 60 * 1000;
+    // }
+    // if (query.filter === "week") {
+    //   date = Date.now() + 24 * 60 * 60 * 1000;
+    // }
 
     const result = await this.Event.findManyEvent();
-    if (result.length === 0) throw new AppError("Data Empty", 404);
+    // if (result.length === 0) throw new AppError("Data Empty", 404);
+
     return result;
   }
 
