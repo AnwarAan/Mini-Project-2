@@ -7,7 +7,7 @@ const responseFail = (res, message, statusCode) => {
   return res.status(statusCode).json(response);
 };
 
-const responseSuccess = (res, data, message, statusCode) => {
+const responseSuccess = (res, data, message = "Success", statusCode = 200) => {
   const response = {
     status: true,
     statusCode,

@@ -1,8 +1,9 @@
 import AppError from "./app-error.js";
 import utils from "./utils.js";
 
-const errorHandler = (err, req, res, next) => {
-  if (err instanceof AppError) return utils.responseFail(res, err.message, err.statusCode);
+const errorHandler = (error, req, res, next) => {
+  console.log(error);
+  if (error instanceof AppError) return utils.responseFail(res, error.message, error.statusCode);
 
   return utils.responseFail(res, "Internal Server Error", 500);
 };

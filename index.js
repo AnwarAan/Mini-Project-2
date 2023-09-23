@@ -24,10 +24,10 @@ app.use(helmet())
 
 connetionMysql()
 
-app.use("api/user", userRoutes)
-app.use("api/event", eventRoutes)
-app.use("api/order", orderRoutes)
-app.use("api/review", reviewRoutes)
+app.use("/api/user", userRoutes)
+app.use("/api/event", eventRoutes)
+app.use("/api/order", orderRoutes)
+app.use("/api/review", reviewRoutes)
 
 app.use(errorHandler)
 app.use(notFound)
