@@ -15,6 +15,12 @@ const getUserById = tryCatch(async (req, res, next) => {
   return utils.responseSuccess(res, response);
 });
 
+const getEventByUserId = tryCatch(async (req, res, next) => {
+  const params = req.params.userId;
+  const response = await controller.getEventByUserId(params);
+  return utils.responseSuccess(res, response);
+});
+
 const register = tryCatch(async (req, res, next) => {
   const payload = req.body;
   const response = await controller.register(payload);
@@ -41,4 +47,4 @@ const deleteUser = tryCatch(async (req, res, next) => {
   return utils.responseSuccess(res, response);
 });
 
-export default { getUsers, getUserById, register, login, updateUser, deleteUser };
+export default { getUsers, getUserById, getEventByUserId, register, login, updateUser, deleteUser };

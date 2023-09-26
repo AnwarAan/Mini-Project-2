@@ -6,6 +6,7 @@ const router = Router();
 
 router.get("/", api.getUsers);
 router.get("/:userId", api.getUserById);
+router.get("/event/:userId", api.getEventByUserId);
 
 router.post("/register", api.register);
 router.post("/login", api.login);

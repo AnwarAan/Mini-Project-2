@@ -1,4 +1,5 @@
 import Event from "../../models/event.js";
+import Promo from "../../models/promo.js";
 
 export default class Events {
   async findManyEvent() {

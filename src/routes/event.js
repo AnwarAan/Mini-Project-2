@@ -5,6 +5,7 @@ import jwtAuth from "../helpers/jwtAuth.js";
 const router = Router();
 
 router.get("/", api.getEvents);
+router.get("/:userId", api.getEventUserId);
 router.get("/:eventId", api.getEventById);
 
 router.post("/", api.addEvent);

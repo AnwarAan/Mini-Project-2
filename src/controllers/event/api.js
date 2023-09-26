@@ -10,6 +10,12 @@ const getEvents = tryCatch(async (req, res, next) => {
   return utils.responseSuccess(res, response);
 });
 
+const getEventUserId = tryCatch(async (req, res, next) => {
+  const params = req.params.userId;
+  const response = await controller.getEventById(params);
+  return utils.responseSuccess(res, response);
+});
+
 const getEventById = tryCatch(async (req, res, next) => {
   const params = req.params.EventId;
   const response = await controller.getEventById(params);
@@ -36,4 +42,4 @@ const deleteEvent = tryCatch(async (req, res, next) => {
   return utils.responseSuccess(res, response);
 });
 
-export default { getEvents, getEventById, addEvent, updateEvent, deleteEvent };
+export default { getEvents, getEventById, getEventUserId, addEvent, updateEvent, deleteEvent };
