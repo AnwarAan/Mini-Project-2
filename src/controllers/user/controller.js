@@ -2,6 +2,8 @@ import Users from "./repositories.js";
 import AppError from "../../utils/app-error.js";
 import bcrypt from "../../helpers/bcrypt.js";
 import jwt from "jsonwebtoken";
+import Event from "../../models/event.js";
+import Referral from "../../models/referral.js";
 
 export default class Controller {
   constructor() {
@@ -15,8 +17,15 @@ export default class Controller {
   }
 
   async getUserById(userId) {
-    const params = { where: { id: userId } };
+    const params = { include: { model: Referral }, where: { id: userId } };
     const result = await this.user.findOneUser(params);
+    if (result === null) throw new AppError("User not Found", 404);
+    return result;
+  }
+
+  async getEventByUserId(userId) {
+    const params = { include: { model: Event, where: { userId: userId } } };
+    const result = await this.user.findManyUser(params);
     if (result === null) throw new AppError("User not Found", 404);
     return result;
   }
@@ -29,10 +38,11 @@ export default class Controller {
 
   async register(payload) {
     const { firstName, lastName, email, password } = payload;
+    const imageURL = `https://robohash.org/${firstName}`;
     const checkUser = await this.getUserByEmail(email);
     if (checkUser !== null) throw new AppError("Email Already Exist", 403);
     const pwd = await bcrypt.hashPwd(password);
-    const data = { first_name: firstName, last_name: lastName, email: email, password: pwd };
+    const data = { first_name: firstName, last_name: lastName, email: email, password: pwd, image_url: imageURL };
     await this.user.insertOneUser(data);
   }
 
@@ -54,7 +64,7 @@ export default class Controller {
   }
 
   async updateUser(payload, userId) {
-    const { name, nickname, phoneNumber, address, gender } = payload;
+    const { name, nickname, phoneNumber, address, gender, imageUrl } = payload;
     const getUser = await this.getUserById(userId);
     const params = { where: { id: userId } };
     const userData = getUser.dataValues;
@@ -74,6 +84,9 @@ export default class Controller {
     }
     if (userData.gender !== gender) {
       updateData.gender = gender;
+    }
+    if (userData.image_url !== imageUrl) {
+      updateData.image_url = imageUrl;
     }
 
     await this.user.updateOneUser(updateData, params);

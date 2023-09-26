@@ -1,7 +1,14 @@
 import { Router } from "express";
+import api from "../controllers/review/api.js";
+import jwtAuth from "../helpers/jwtAuth.js";
 
 const router = Router();
 
-router.get("/");
+router.get("/", api.getReviews);
+router.get("/:eventId", api.getReviewByEventId);
+
+router.post("/", api.addReview);
+
+router.delete("/:reviewId", jwtAuth, api.deleteReview);
 
 export default router;

@@ -11,6 +11,7 @@ const User = sequelize.define("user", {
   phone_number: { type: DataTypes.STRING, defaultValue: "" },
   address: { type: DataTypes.STRING, defaultValue: "" },
   gender: { type: DataTypes.STRING, defaultValue: "" },
+  image_url: { type: DataTypes.STRING, defaultValue: "" },
 });
 
 export default User;

@@ -1,6 +1,6 @@
 import Events from "./repositories.js";
 import AppError from "../../utils/app-error.js";
-import { Op, Sequelize } from "sequelize";
+import Promo from "../../models/promo.js";
 
 export default class Controller {
   constructor() {
@@ -8,22 +8,21 @@ export default class Controller {
   }
 
   async getEvents(query) {
-    // const now = Date.now();
-    // if (query.filter === "today") {
-    //   date = Date.now() + 24 * 60 * 60 * 1000;
-    // }
-    // if (query.filter === "week") {
-    //   date = Date.now() + 24 * 60 * 60 * 1000;
-    // }
-
     const result = await this.Event.findManyEvent();
     // if (result.length === 0) throw new AppError("Data Empty", 404);
 
     return result;
   }
 
+  async getEventUserId(userId) {
+    const params = { where: { userId: userId } };
+    const result = await this.Event.findOneEvent(params);
+    if (result === null) throw new AppError("Event not Found", 404);
+    return result;
+  }
+
   async getEventById(eventId) {
-    const params = { where: { id: eventId } };
+    const params = { include: { model: Promo }, where: { id: eventId } };
     const result = await this.Event.findOneEvent(params);
     if (result === null) throw new AppError("Event not Found", 404);
     return result;
@@ -44,6 +43,7 @@ export default class Controller {
       regency,
       district,
       address,
+      userId,
     } = payload;
     const data = {
       name: name,
@@ -59,8 +59,8 @@ export default class Controller {
       regency: regency,
       district: district,
       address: address,
+      userId: userId,
     };
-    console.log(data);
     await this.Event.insertOneEvent(data);
   }
 
