@@ -4,6 +4,8 @@ import Event from "../../models/event.js";
 
 User.hasMany(Referral);
 Referral.belongsTo(User);
+Event.hasMany(Referral);
+Referral.belongsTo(Event);
 
 export default class Referrals {
   async findManyReferral(params) {

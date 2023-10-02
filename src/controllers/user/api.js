@@ -36,8 +36,19 @@ const login = tryCatch(async (req, res, next) => {
 const updateUser = tryCatch(async (req, res, next) => {
   const params = req.params.userId;
   const payload = req.body;
-
   const response = await controller.updateUser(payload, params);
+  return utils.responseSuccess(res, response);
+});
+
+const transactionUser = tryCatch(async (req, res, next) => {
+  const payload = req.body;
+  const response = await controller.transactionUser(payload);
+  return utils.responseSuccess(res, response);
+});
+
+const resetPassword = tryCatch(async (req, res, next) => {
+  const payload = req.body;
+  const response = await controller.resetPassword(payload);
   return utils.responseSuccess(res, response);
 });
 
@@ -47,4 +58,14 @@ const deleteUser = tryCatch(async (req, res, next) => {
   return utils.responseSuccess(res, response);
 });
 
-export default { getUsers, getUserById, getEventByUserId, register, login, updateUser, deleteUser };
+export default {
+  getUsers,
+  getUserById,
+  getEventByUserId,
+  register,
+  login,
+  updateUser,
+  transactionUser,
+  resetPassword,
+  deleteUser,
+};

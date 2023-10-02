@@ -11,7 +11,10 @@ const User = sequelize.define("user", {
   phone_number: { type: DataTypes.STRING, defaultValue: "" },
   address: { type: DataTypes.STRING, defaultValue: "" },
   gender: { type: DataTypes.STRING, defaultValue: "" },
+  balance: { type: DataTypes.INTEGER, defaultValue: 0 },
+  point: { type: DataTypes.INTEGER, defaultValue: 0 },
   image_url: { type: DataTypes.STRING, defaultValue: "" },
+  is_active: { type: DataTypes.BOOLEAN, defaultValue: false },
 });
 
 export default User;

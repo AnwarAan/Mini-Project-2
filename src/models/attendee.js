@@ -1,14 +1,14 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 
-const Referral = sequelize.define(
-  "referral",
+const Attendee = sequelize.define(
+  "attendee",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    code: { type: DataTypes.STRING },
-    time: { type: DataTypes.BIGINT },
+    name: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING },
   },
   { timestamps: false }
 );
 
-export default Referral;
+export default Attendee;

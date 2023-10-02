@@ -31,7 +31,6 @@ const addPromo = tryCatch(async (req, res, next) => {
 const updatePromo = tryCatch(async (req, res, next) => {
   const params = req.params.promoId;
   const payload = req.body;
-
   const response = await controller.updatePromo(payload, params);
   return utils.responseSuccess(res, response);
 });

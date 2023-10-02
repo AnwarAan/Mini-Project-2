@@ -27,7 +27,7 @@ export default class Promos {
   }
 
   async deleteOnePromo(params) {
-    const result = await Promo.destroy({ truncate: true });
+    const result = await Promo.destroy(params);
     return result;
   }
 }

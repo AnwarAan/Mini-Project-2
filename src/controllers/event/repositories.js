@@ -1,9 +1,8 @@
 import Event from "../../models/event.js";
-import Promo from "../../models/promo.js";
 
 export default class Events {
-  async findManyEvent() {
-    const result = await Event.findAll();
+  async findManyEvent(params) {
+    const result = await Event.findAll(params);
     return result;
   }
 

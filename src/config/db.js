@@ -6,11 +6,12 @@ const sequelize = new Sequelize(config.database, config.user, config.pass, { hos
 export const connetionMysql = async () => {
   try {
     sequelize.authenticate();
+    console.log("Success Connect Mysql DB");
     // sequelize.sync({ force: true });
     // sequelize.sync({ alter: true });
-    console.log("Success Connect Mysql DB");
   } catch (error) {
-    console.log(error);
+    console.log("Error", error);
+    throw new Error(error.message, error.code);
   }
 };
 

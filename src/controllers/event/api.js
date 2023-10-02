@@ -24,7 +24,9 @@ const getEventById = tryCatch(async (req, res, next) => {
 
 const addEvent = tryCatch(async (req, res, next) => {
   const payload = req.body;
-  const response = await controller.addEvent(payload);
+  const file = req.file;
+
+  const response = await controller.addEvent(payload, file);
   return utils.responseSuccess(res, response, "Success", 201);
 });
 

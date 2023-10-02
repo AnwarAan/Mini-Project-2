@@ -1,6 +1,7 @@
 import { Router } from "express";
 import api from "../controllers/event/api.js";
-import jwtAuth from "../helpers/jwtAuth.js";
+import jwtAuth from "../helpers/jwt-auth.js";
+import upload from "../helpers/upload-file.js";
 
 const router = Router();
 
@@ -8,7 +9,7 @@ router.get("/", api.getEvents);
 router.get("/:userId", api.getEventUserId);
 router.get("/:eventId", api.getEventById);
 
-router.post("/", api.addEvent);
+router.post("/", upload.single("file"), api.addEvent);
 
 router.put("/:eventId", jwtAuth, api.updateEvent);
 

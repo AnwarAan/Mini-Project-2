@@ -1,6 +1,6 @@
 import { Router } from "express";
 import api from "../controllers/review/api.js";
-import jwtAuth from "../helpers/jwtAuth.js";
+import jwtAuth from "../helpers/jwt-auth.js";
 
 const router = Router();
 

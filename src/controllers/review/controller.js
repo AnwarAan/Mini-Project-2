@@ -9,7 +9,7 @@ export default class Controller {
     this.review = new Reviews();
   }
 
-  async getReviews(eventId) {
+  async getReviews(query) {
     const params = {};
     const result = await this.review.findManyReview(params);
     // if (result.length === 0) throw new AppError("Data Empty", 404);
@@ -20,7 +20,6 @@ export default class Controller {
   async getReviewByEventId(eventId) {
     const params = { include: [{ model: User }], where: { eventId: eventId } };
 
-    console.log(params);
     const result = await this.review.findManyReview(params);
     if (result === null) throw new AppError("Review not Found", 404);
     return result;

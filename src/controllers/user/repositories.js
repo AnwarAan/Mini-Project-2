@@ -1,9 +1,13 @@
 import User from "../../models/user.js";
 import Event from "../../models/event.js";
-import Referral from "../../models/referral.js";
+import Attendee from "../../models/attendee.js";
 
 User.hasMany(Event);
 Event.belongsTo(User);
+User.hasMany(Attendee);
+Attendee.belongsTo(User);
+Event.hasMany(Attendee);
+Attendee.belongsTo(Event);
 
 export default class Users {
   async findManyUser(params) {
