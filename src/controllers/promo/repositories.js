@@ -1,8 +1,7 @@
 import Promo from "../../models/promo.js";
-import User from "../../models/user.js";
 import Event from "../../models/event.js";
+import sequelize from "../../config/db.js";
 
-Event.hasOne(Promo);
 Promo.belongsTo(Event);
 
 export default class Promos {

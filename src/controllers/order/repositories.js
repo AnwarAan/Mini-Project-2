@@ -1,35 +1,34 @@
-import Order from "../../models/Order.js";
-import User from "../../models/user.js";
+import Order from "../../models/order.js";
 import Event from "../../models/event.js";
+import User from "../../models/user.js";
+import sequelize from "../../config/db.js";
 
-Event.hasMany(Order);
 Order.belongsTo(Event);
-User.hasMany(Order);
 Order.belongsTo(User);
 
 export default class Orders {
   async findManyOrder(params) {
-    const result = await Order.findAll(params);
+    const result = await Promo.findAll(params);
     return result;
   }
 
   async findOneOrder(params) {
-    const result = await Order.findOne(params);
+    const result = await Promo.findOne(params);
     return result;
   }
 
   async insertOneOrder(data) {
-    const result = await Order.create(data);
+    const result = await Promo.create(data);
     return result;
   }
 
   async updateOneOrder(data, params) {
-    const result = await Order.update(data, params);
+    const result = await Promo.update(data, params);
     return result;
   }
 
   async deleteOneOrder(params) {
-    const result = await Order.destroy(params);
+    const result = await Promo.destroy(params);
     return result;
   }
 }

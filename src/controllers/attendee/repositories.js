@@ -1,4 +1,9 @@
 import Attendee from "../../models/attendee.js";
+import Event from "../../models/event.js";
+import User from "../../models/user.js";
+
+Attendee.belongsTo(Event);
+Attendee.belongsTo(User);
 
 export default class Attendees {
   async findManyAttendee(params) {

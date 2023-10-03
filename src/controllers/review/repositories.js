@@ -1,12 +1,10 @@
 import Review from "../../models/review.js";
-import User from "../../models/user.js";
 import Event from "../../models/event.js";
-import { Model } from "sequelize";
+import User from "../../models/user.js";
+import sequelize from "../../config/db.js";
 
-Event.hasMany(Review);
-Review.belongsTo(Event);
-User.hasOne(Review);
 Review.belongsTo(User);
+Review.belongsTo(Event);
 
 export default class Reviews {
   async findManyReview(params) {

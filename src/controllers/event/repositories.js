@@ -1,4 +1,18 @@
+import sequelize from "../../config/db.js";
 import Event from "../../models/event.js";
+import User from "../../models/user.js";
+import Attendee from "../../models/attendee.js";
+import Review from "../../models/review.js";
+import Referral from "../../models/referral.js";
+import Promo from "../../models/promo.js";
+import Order from "../../models/order.js";
+
+Event.hasMany(Attendee);
+Event.belongsTo(User);
+Event.hasMany(Review);
+Event.hasMany(Referral);
+Event.hasOne(Promo);
+Event.hasMany(Order);
 
 export default class Events {
   async findManyEvent(params) {
