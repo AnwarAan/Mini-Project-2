@@ -9,19 +9,11 @@ export default class Controller {
     this.promo = new Promos();
   }
 
-  async getPromos(eventId) {
-    const params = {};
+  async getPromos(query) {
+    const params = { include: { model: Event } };
     const result = await this.promo.findManyPromo(params);
     // if (result.length === 0) throw new AppError("Data Empty", 404);
 
-    return result;
-  }
-
-  async getPromoByEventId(eventId) {
-    const params = { include: [{ model: User }], where: { eventId: eventId } };
-
-    const result = await this.promo.findManyPromo(params);
-    if (result === null) throw new AppError("Promo not Found", 404);
     return result;
   }
 
@@ -33,9 +25,8 @@ export default class Controller {
   }
 
   async addPromo(payload) {
-    const { name, percentage, limit, eventId } = payload;
+    const { percentage, limit, eventId } = payload;
     const data = {
-      name: name,
       percentage: percentage,
       limit: limit,
       eventId: eventId,
@@ -43,8 +34,28 @@ export default class Controller {
     await this.promo.insertOnePromo(data);
   }
 
-  async deletePromo(promoId) {
+  async updatePromo(payload, promoId) {
+    console.log("this", promoId);
     const params = { where: { id: promoId } };
+    const getPromo = await this.getPromoById(promoId);
+    const promoData = getPromo.dataValues;
+    let updateData = {};
+
+    // if (promoData.name !== name) throw new AppError("Invalid Promo", 403);
+    updateData.limit = promoData.limit - 1;
+    await this.promo.updateOnePromo(updateData, params);
+    console.log("promo", updateData);
+    const checkPromo = await this.getPromoById(promoId);
+    if (checkPromo.limit < 1) {
+      await this.deletePromo(promoId);
+      return "Promo is Over";
+    }
+  }
+
+  async deletePromo(promoId) {
+    console.log("id", promoId);
+    const params = { where: { id: promoId } };
+    console.log(params);
     const result = await this.promo.deleteOnePromo(params);
     return result;
   }

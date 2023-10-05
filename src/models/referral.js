@@ -6,7 +6,7 @@ const Referral = sequelize.define(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     code: { type: DataTypes.STRING },
-    owner: { type: DataTypes.STRING },
+    time: { type: DataTypes.BIGINT },
   },
   { timestamps: false }
 );

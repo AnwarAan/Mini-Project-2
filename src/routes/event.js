@@ -1,17 +1,18 @@
-import { Router } from "express";
-import api from "../controllers/event/api.js";
-import jwtAuth from "../helpers/jwtAuth.js";
+import { Router } from "express"
+import api from "../controllers/event/api.js"
+import jwtAuth from "../helpers/jwt-auth.js"
+import upload from "../helpers/upload-file.js"
 
-const router = Router();
+const router = Router()
 
-router.get("/", api.getEvents);
-router.get("/:userId", api.getEventUserId);
-router.get("/:eventId", api.getEventById);
+router.get("/", api.getEvents)
+router.get("/user/:userId", api.getEventUserId)
+router.get("/id/:eventId", api.getEventById)
 
-router.post("/", api.addEvent);
+router.post("/", upload.single("file"), api.addEvent)
 
-router.put("/:eventId", jwtAuth, api.updateEvent);
+router.put("/:eventId", jwtAuth, api.updateEvent)
 
-router.delete("/:eventId", jwtAuth, api.deleteEvent);
+router.delete("/:eventId", jwtAuth, api.deleteEvent)
 
-export default router;
+export default router

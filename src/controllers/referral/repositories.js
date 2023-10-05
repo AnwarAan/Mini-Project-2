@@ -1,8 +1,9 @@
+import sequelize from "../../config/db.js";
 import Referral from "../../models/referral.js";
-import User from "../../models/user.js";
 import Event from "../../models/event.js";
+import User from "../../models/user.js";
 
-User.hasMany(Referral);
+Referral.belongsTo(Event);
 Referral.belongsTo(User);
 
 export default class Referrals {

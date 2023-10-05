@@ -17,7 +17,7 @@ const getReferralByUserId = tryCatch(async (req, res, next) => {
 });
 
 const getReferralById = tryCatch(async (req, res, next) => {
-  const params = req.params.ReferralId;
+  const params = req.params.referralId;
   const response = await controller.getReferralById(params);
   return utils.responseSuccess(res, response);
 });
@@ -28,10 +28,17 @@ const addReferral = tryCatch(async (req, res, next) => {
   return utils.responseSuccess(res, response, "Success", 201);
 });
 
+const redeemReferral = tryCatch(async (req, res, next) => {
+  const params = req.params.referralId;
+  const payload = req.body;
+  const response = await controller.redeemReferral(payload, params);
+  return utils.responseSuccess(res, response, "Success Redeem Code");
+});
+
 const deleteReferral = tryCatch(async (req, res, next) => {
-  const params = req.params.ReferralId;
+  const params = req.params.referralId;
   const response = await controller.deleteReferral(params);
   return utils.responseSuccess(res, response);
 });
 
-export default { getReferrals, getReferralById, getReferralByUserId, addReferral, deleteReferral };
+export default { getReferrals, getReferralById, getReferralByUserId, addReferral, redeemReferral, deleteReferral };

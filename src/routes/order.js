@@ -1,7 +1,14 @@
 import { Router } from "express";
+import api from "../controllers/order/api.js";
+import jwtAuth from "../helpers/jwt-auth.js";
 
 const router = Router();
 
-router.get("/");
+router.get("/", api.getOrders);
+router.get("/:userId", api.getOrderById);
+
+router.post("/", api.addOrder);
+
+router.delete("/:orderId", jwtAuth, api.deleteOrder);
 
 export default router;
