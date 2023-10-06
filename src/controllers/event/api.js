@@ -12,12 +12,12 @@ const getEvents = tryCatch(async (req, res, next) => {
 
 const getEventUserId = tryCatch(async (req, res, next) => {
   const params = req.params.userId;
-  const response = await controller.getEventById(params);
+  const response = await controller.getEventUserId(params);
   return utils.responseSuccess(res, response);
 });
 
 const getEventById = tryCatch(async (req, res, next) => {
-  const params = req.params.EventId;
+  const params = req.params.eventId;
   const response = await controller.getEventById(params);
   return utils.responseSuccess(res, response);
 });

@@ -24,7 +24,7 @@ export default class Controller {
 
   async getEventUserId(userId) {
     const params = { where: { userId: userId } };
-    const result = await this.event.findOneEvent(params);
+    const result = await this.event.findManyEvent(params);
     // if (result === null) throw new AppError("Event not Found", 404);
     return result;
   }

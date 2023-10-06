@@ -6,8 +6,8 @@ import upload from "../helpers/upload-file.js";
 const router = Router();
 
 router.get("/", api.getEvents);
-router.get("/:userId", api.getEventUserId);
-router.get("/:eventId", api.getEventById);
+router.get("/user/:userId", api.getEventUserId);
+router.get("/detail/:eventId", api.getEventById);
 
 router.post("/", upload.single("file"), api.addEvent);
 
