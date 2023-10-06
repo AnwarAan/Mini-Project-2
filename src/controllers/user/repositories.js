@@ -4,13 +4,14 @@ import Referral from "../../models/referral.js";
 import Review from "../../models/review.js";
 import Order from "../../models/order.js";
 import Event from "../../models/event.js";
-import sequelize from "../../config/db.js";
+import Wislist from "../../models/wishlist.js";
 
 User.hasMany(Event);
 User.hasMany(Attendee);
 User.hasOne(Review);
 User.hasMany(Order);
 User.hasMany(Referral);
+User.hasMany(Wislist);
 
 export default class Users {
   async findManyUser(params) {

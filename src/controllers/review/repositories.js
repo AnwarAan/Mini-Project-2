@@ -1,7 +1,6 @@
 import Review from "../../models/review.js";
 import Event from "../../models/event.js";
 import User from "../../models/user.js";
-import sequelize from "../../config/db.js";
 
 Review.belongsTo(User);
 Review.belongsTo(Event);

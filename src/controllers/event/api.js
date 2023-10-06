@@ -31,7 +31,7 @@ const addEvent = tryCatch(async (req, res, next) => {
 });
 
 const updateEvent = tryCatch(async (req, res, next) => {
-  const params = req.params.EventId;
+  const params = req.params.eventId;
   const payload = req.body;
 
   const response = await controller.updateEvent(payload, params);
@@ -39,9 +39,16 @@ const updateEvent = tryCatch(async (req, res, next) => {
 });
 
 const deleteEvent = tryCatch(async (req, res, next) => {
-  const params = req.params.EventId;
+  const params = req.params.eventId;
   const response = await controller.deleteEvent(params);
   return utils.responseSuccess(res, response);
 });
 
-export default { getEvents, getEventById, getEventUserId, addEvent, updateEvent, deleteEvent };
+export default {
+  getEvents,
+  getEventById,
+  getEventUserId,
+  addEvent,
+  updateEvent,
+  deleteEvent,
+};

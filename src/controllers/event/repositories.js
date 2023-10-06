@@ -6,6 +6,7 @@ import Review from "../../models/review.js";
 import Referral from "../../models/referral.js";
 import Promo from "../../models/promo.js";
 import Order from "../../models/order.js";
+import Wishlist from "../../models/wishlist.js";
 
 Event.hasMany(Attendee);
 Event.belongsTo(User);
@@ -13,6 +14,7 @@ Event.hasMany(Review);
 Event.hasMany(Referral);
 Event.hasOne(Promo);
 Event.hasMany(Order);
+Event.hasMany(Wishlist);
 
 export default class Events {
   async findManyEvent(params) {

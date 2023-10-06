@@ -1,8 +1,6 @@
 import Reviews from "./repositories.js";
 import AppError from "../../utils/app-error.js";
-import { Op, Sequelize } from "sequelize";
 import User from "../../models/user.js";
-import Event from "../../models/event.js";
 
 export default class Controller {
   constructor() {

@@ -1,4 +1,3 @@
-import sequelize from "../../config/db.js";
 import Referral from "../../models/referral.js";
 import Event from "../../models/event.js";
 import User from "../../models/user.js";

@@ -4,15 +4,18 @@ import Promo from "../../models/promo.js";
 import Attendee from "../../models/attendee.js";
 import Referral from "../../models/referral.js";
 import User from "../../models/user.js";
+import Review from "../../models/review.js";
+import Wishlist from "../../models/wishlist.js";
 
 export default class Controller {
   constructor() {
     this.event = new Events();
+    this.wishlist = new Wishlist();
   }
 
   async getEvents(query) {
     const params = {
-      include: [{ model: Promo }, { model: Attendee }, { model: Referral }],
+      include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
       where: query,
     };
     console.log("query", query);
@@ -23,7 +26,10 @@ export default class Controller {
   }
 
   async getEventUserId(userId) {
-    const params = { where: { userId: userId } };
+    const params = {
+      include: [{ model: Review }, { model: Attendee }, { model: Wishlist }],
+      where: { userId: userId },
+    };
     const result = await this.event.findManyEvent(params);
     // if (result === null) throw new AppError("Event not Found", 404);
     return result;
@@ -31,7 +37,7 @@ export default class Controller {
 
   async getEventById(eventId) {
     const params = {
-      include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: User }],
+      include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: User }, { model: Wishlist }],
       where: { id: eventId },
     };
     const result = await this.event.findOneEvent(params);

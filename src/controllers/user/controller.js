@@ -24,7 +24,9 @@ export default class Controller {
   }
 
   async getUsers() {
-    const params = { include: [{ model: Referral, include: [Event] }, { model: Event }, { model: Attendee }] };
+    const params = {
+      include: [{ model: Referral, include: [Event] }, { model: Event }, { model: Attendee }],
+    };
     const result = await this.user.findManyUser(params);
     // if (result.length === 0) throw new AppError("Data Empty", 404);
     return result;
@@ -54,7 +56,13 @@ export default class Controller {
     const { firstName, lastName, email, password } = payload;
     const pwd = await bcrypt.hashPwd(password);
     const imageURL = `https://robohash.org/${firstName}`;
-    const data = { first_name: firstName, last_name: lastName, email: email, password: pwd, image_url: imageURL };
+    const data = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      password: pwd,
+      image_url: imageURL,
+    };
     const checkUser = await this.getUserByEmail(email);
     if (checkUser !== null) throw new AppError("Email Already Exist", 403);
     const user = await this.user.insertOneUser(data);
@@ -163,10 +171,13 @@ export default class Controller {
     updateDataPoint.point = point;
     if (updateDataBalance.balance < 0 && !getReferral) throw new AppError("Balance not Enough", 403);
     getReferral
-      ? (await this.user.updateOneUser(updateDataPoint, { where: { id: getReferral.dataValues.userId } })) &&
-        (await this.referral.deleteReferral(getReferral.dataValues.id))
+      ? (await this.user.updateOneUser(updateDataPoint, {
+          where: { id: getReferral.dataValues.userId },
+        })) && (await this.referral.deleteReferral(getReferral.dataValues.id))
       : (await this.user.updateOneUser(updateDataBalance, params)) &&
-        (await this.user.updateOneUser(updateDataBalance2, { where: { id: eventData.user.id } }));
+        (await this.user.updateOneUser(updateDataBalance2, {
+          where: { id: eventData.user.id },
+        }));
 
     if (eventData.promo !== null && !getReferral) await this.promo.updatePromo(null, eventData.promo.dataValues.id);
     await this.referral.addReferral({ userId, eventId });
