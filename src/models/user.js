@@ -13,4 +13,5 @@ const User = sequelize.define("user", {
   gender: { type: DataTypes.STRING, defaultValue: "" },
 });
 
+
 export default User;

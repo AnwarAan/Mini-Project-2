@@ -2,30 +2,52 @@ import Events from "./repositories.js";
 import AppError from "../../utils/app-error.js";
 import { Op, Sequelize } from "sequelize";
 
+// http://localhost:3000/events/location?loc=isOnline&value=online
+
 export default class Controller {
   constructor() {
     this.Event = new Events();
   }
 
   async getEvents(query) {
-    // const now = Date.now();
-    // if (query.filter === "today") {
-    //   date = Date.now() + 24 * 60 * 60 * 1000;
-    // }
-    // if (query.filter === "week") {
-    //   date = Date.now() + 24 * 60 * 60 * 1000;
-    // }
+      // [Op.or]: [{
+      //     from: {
+      //         [Op.between]: [startDate, endDate]
+      //     }
+      // }, {
+      //     to: {
+      //         [Op.between]: [startDate, endDate]
+      //     }
+      // }]
+    const { type, is_online, thisWeek, today, category} = query
+    let params;
 
-    const result = await this.Event.findManyEvent();
-    // if (result.length === 0) throw new AppError("Data Empty", 404);
+    if(is_online) {
+      params = {where: {
+        is_online: is_online
+      }};
+    } if (type) {
+      params = {where: {type: type}}
+    } if (today) {
+      params = {where: {date:today}}
+    } if (category) {
+      params = {where: {category: category}}
+    }
 
+    const result = await this.Event.findManyEvent(params);
+    if (result.length === 0) throw new AppError("Data Empty", 404);
+
+    console.log(params);
+    console.log(query.type);
     return result;
   }
 
   async getEventById(eventId) {
-    const params = { where: { id: eventId } };
+    const params = {
+      where: { id: eventId }
+    };
     const result = await this.Event.findOneEvent(params);
-    if (result === null) throw new AppError("Event not Found", 404);
+    // if (result === null) throw new AppError("Event not Found", 404);
     return result;
   }
 
