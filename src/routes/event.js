@@ -15,4 +15,5 @@ router.put("/:eventId", jwtAuth, api.updateEvent);
 
 router.delete("/:eventId", jwtAuth, api.deleteEvent);
 
+
 export default router;

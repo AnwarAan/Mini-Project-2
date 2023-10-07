@@ -17,4 +17,5 @@ const User = sequelize.define("user", {
   is_active: { type: DataTypes.BOOLEAN, defaultValue: false },
 });
 
+
 export default User;

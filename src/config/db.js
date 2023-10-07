@@ -13,6 +13,13 @@ export const connetionMysql = async () => {
     sequelize.authenticate();
     sequelize.sync();
     console.log("Success Connect Mysql DB");
+
+    sequelize.sync().then(() => {
+      console.log('table created successfully!');
+   }).catch((error) => {
+      console.error('Unable to create table : ', error);
+   })
+
   } catch (error) {
     console.log("Error", error);
     throw new Error(error.message, error.code);

@@ -20,6 +20,7 @@ const pool = {
   idle: Number(DB_POOL_IDLE),
 };
 
+
 export default {
   DB_PASSWORD: DB_PASSWORD,
   DB_USER: DB_USER,
