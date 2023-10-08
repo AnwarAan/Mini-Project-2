@@ -34,6 +34,7 @@ export default class Controller {
     let params;
 
     if (is_online) {
+      console.log("thi");
       params = {
         include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
         where: { is_online: is_online },
@@ -54,16 +55,16 @@ export default class Controller {
         where: { category: category },
       };
     } else {
+      console.log("thisss");
       params = {
         include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
+        where: query,
       };
     }
 
     const result = await this.event.findManyEvent(params);
     // if (result.length === 0) throw new AppError("Data Empty", 404);
 
-    console.log(params);
-    console.log(query.type);
     return result;
   }
 
