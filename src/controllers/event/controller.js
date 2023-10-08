@@ -7,8 +7,6 @@ import User from "../../models/user.js";
 import Review from "../../models/review.js";
 import Wishlist from "../../models/wishlist.js";
 
-// http://localhost:3000/events/location?loc=isOnline&value=online
-
 export default class Controller {
   constructor() {
     this.event = new Events();
@@ -23,43 +21,46 @@ export default class Controller {
     // console.log("query", query);
     // const result = await this.event.findManyEvent(params);
     // if (result.length === 0) throw new AppError("Data Empty", 404);
-      // [Op.or]: [{
-      //     from: {
-      //         [Op.between]: [startDate, endDate]
-      //     }
-      // }, {
-      //     to: {
-      //         [Op.between]: [startDate, endDate]
-      //     }
-      // }]
-    const { type, is_online, thisWeek, today, category} = query
+    // [Op.or]: [{
+    //     from: {
+    //         [Op.between]: [startDate, endDate]
+    //     }
+    // }, {
+    //     to: {
+    //         [Op.between]: [startDate, endDate]
+    //     }
+    // }]
+    const { type, is_online, thisWeek, today, category } = query;
     let params;
 
-    if(is_online) {
+    if (is_online) {
       params = {
         include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
-        where: {is_online: is_online}
+        where: { is_online: is_online },
       };
     } else if (type) {
       params = {
         include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
-        where: {type: type}}
+        where: { type: type },
+      };
     } else if (today) {
       params = {
         include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
-        where: {date:today}}
+        where: { date: today },
+      };
     } else if (category) {
       params = {
         include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
-        where: {category: category}}
+        where: { category: category },
+      };
     } else {
       params = {
-        include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }]
-      }
+        include: [{ model: Promo }, { model: Attendee }, { model: Referral }, { model: Wishlist }],
+      };
     }
 
     const result = await this.event.findManyEvent(params);
-    if (result.length === 0) throw new AppError("Data Empty", 404);
+    // if (result.length === 0) throw new AppError("Data Empty", 404);
 
     console.log(params);
     console.log(query.type);
